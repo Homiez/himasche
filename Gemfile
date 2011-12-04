@@ -44,3 +44,4 @@ gem "mongoid", ">= 2.3.3"
 gem "omniauth", ">= 1.0.0"
 gem "omniauth-twitter"
 gem "rails-footnotes", ">= 3.7", :group => :development
+gem "twitter"

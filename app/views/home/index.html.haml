@@ -1,3 +1,8 @@
 %h3 Home
-- @users.each do |user|
-  %p User: #{link_to user.name, user}
+
+- @dates.each do |d|
+  = p d[:day].strftime("%Y/%m/%d")
+  #{link_to "登録", {:controller => "sessions", :action => "new", :hima_day => d[:day]}}
+  - d[:users].each do |u|
+    = p u.name
+  %br
