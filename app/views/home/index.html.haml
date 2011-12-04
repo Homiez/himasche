@@ -1,8 +1,12 @@
 %h3 Home
 
+
 - @dates.each do |d|
   = p d[:day].strftime("%Y/%m/%d")
   #{link_to "登録", {:controller => "sessions", :action => "new", :hima_day => d[:day]}}
   - d[:users].each do |u|
     = p u.name
+    = image_tag("https://api.twitter.com/1/users/profile_image?user_id=" + u.uid)
+    - if u.uid == current_user.uid
+      #{link_to "解除", {:controller => "sessions", :action => "destroy"}}
   %br

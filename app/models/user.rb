@@ -3,6 +3,7 @@ class User
   field :provider, :type => String
   field :uid, :type => String
   field :name, :type => String
+  field :image, :type => String
   field :hima_day, :type => Date
   attr_accessible :provider, :uid, :name, :hima_day
 
