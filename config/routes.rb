@@ -1,4 +1,6 @@
 Himasche::Application.routes.draw do
+  resources :users
+
   #get \"users\/show\"
 
   root :to => "home#index"
