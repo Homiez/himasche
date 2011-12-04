@@ -1,17 +1,41 @@
-%h3 Home
-
-
-- @dates.each do |d|
-  = p d[:day].strftime("%Y/%m/%d")
-  - if user_signed_in?
-    - if current_user.hima_day == d[:day]
-      #{link_to "解除", {:controller => "sessions", :action => "destroy"}}
+#hima_dates
+  - @dates.each_with_index do |d,i|
+    - loop = i % 2 == 0 ? 'odd' : 'even'
+    - if @dates.first == d
+      .hima_date.today
+        .hima_day
+          %p 今日
+          %h3= d[:day].strftime("%d")
+        .hima_list_container
+          .hima_list
+            %ul
+              - d[:users].each do |u|
+                %li= link_to image_tag("https://api.twitter.com/1/users/profile_image?user_id=" + u.uid), '', :alt => u.name
+            %p.button
+              - if user_signed_in?
+                - if current_user.hima_day == d[:day]
+                  =link_to "解除", :controller => "sessions", :action => "destroy"
+                - else
+                  =link_to "変更", :controller => "sessions", :action => "new", :hima_day => d[:day]
+              - else
+                =link_to "登録", :controller => "sessions", :action => "new", :hima_day => d[:day]
     - else
-      #{link_to "変更", {:controller => "sessions", :action => "new", :hima_day => d[:day]}}
-  - else
-    #{link_to "登録", {:controller => "sessions", :action => "new", :hima_day => d[:day]}}
-  - d[:users].each do |u|
-    = p u.name
-    = image_tag("https://api.twitter.com/1/users/profile_image?user_id=" + u.uid)
-
-  %br
+      .hima_date
+        %hr{:class => 'hr_'+loop}
+        %div{:class => [loop, 'hima_date']}
+          .hima_day
+            %p= d[:day].strftime("%m")
+            %h3= d[:day].strftime("%d")
+          .hima_list_container
+            .hima_list
+              %ul
+                - d[:users].each do |u|
+                  %li= link_to image_tag("https://api.twitter.com/1/users/profile_image?user_id=" + u.uid), '', :alt => u.name
+              %p.button
+                - if user_signed_in?
+                  - if current_user.hima_day == d[:day]
+                    =link_to "解除", :controller => "sessions", :action => "destroy"
+                  - else
+                    =link_to "変更", :controller => "sessions", :action => "new", :hima_day => d[:day]
+                - else
+                  =link_to "登録", :controller => "sessions", :action => "new", :hima_day => d[:day]
