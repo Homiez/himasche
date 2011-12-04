@@ -26,11 +26,15 @@ class SessionsController < ApplicationController
 
     @client = Twitter::Client.new
 
+    botPhrases = ["勉強会に行くのはいかがでしょう？","登山に行くとかどうでしょう？", "多分、人が急遽足りなくなって、合コンに誘われる気がしますヨ。", "一風堂はお好きですか？　夕飯は一風堂がいいです"].sort_by{|i| rand }
+
+
     sentence = ""  
     sentence.concat(user.name)
-    sentence.concat("さん")
-    sentence.concat(user.hima_day.strftime("%Y/%m/%d"))
-    sentence.concat(" まだひま？")
+    sentence.concat("さん　")
+    sentence.concat(user.hima_day.strftime("%Y月%m日%d"))
+    sentence.concat("は、")
+    sentence.concat(botPhrases[0])
     sentence.concat(Time.now.to_s)
     @client.update(sentence)
     #render :text => sentence
@@ -38,6 +42,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    User.all.where(:id =>  session[:user_id]).destroy
     reset_session
 
     redirect_to root_url, :notice => 'Signed out!'
