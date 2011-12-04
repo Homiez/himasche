@@ -42,5 +42,5 @@ gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "bson_ext", ">= 1.3.1"
 gem "mongoid", ">= 2.3.3"
 gem "omniauth", "0.3.2"
-gem "omniauth-twitter"
+#gem "omniauth-twitter"
 gem "rails-footnotes", ">= 3.7", :group => :development
